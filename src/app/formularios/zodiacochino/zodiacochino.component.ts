@@ -1,81 +1,97 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-zodiacochino',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './zodiacochino.component.html',
-  styles: ``
+  styles: []
 })
 export class ZodiacochinoComponent {
-  formulario!: FormGroup;
-  dia!: number;
-  mes!: number;
-  sexo!: string;
-  horoscopo!: string;
+  form!: FormGroup;
+  signoZodiacal!: string;
   edad!: number;
   nombreCompleto!: string;
   imagen!: string;
   resultado: boolean = false;
-  constructor() { }
-  ngOnInit(): void {
-    this.formulario = new FormGroup({
-      nombre: new FormControl('', Validators.required),
-      apaterno: new FormControl('', Validators.required),
-      amaterno: new FormControl('', Validators.required),
-      anio: new FormControl('', [Validators.required, Validators.min(1900)])
+  mensajeFinal!: string;
+  constructor(private fb: FormBuilder){
+    this.form = this.fb.group({
+      nombre: [''],
+      apellidoP: [''],
+      apellidoM: [''],
+      dia: [''],
+      mes: [''],
+      anio: ['']
     });
   }
-  calcularHoroscopo(): void {
-    const nombre = this.formulario.get('nombre')?.value;
-    const apaterno = this.formulario.get('apaterno')?.value;
-    const amaterno = this.formulario.get('amaterno')?.value;
-    const anio = this.formulario.get('anio')?.value;
+  calcularZodiaco(): void {
+    const nombre = this.form.get('nombre')?.value;
+    const apellidoP = this.form.get('apellidoP')?.value;
+    const apellidoM = this.form.get('apellidoM')?.value;
+    const dia = this.form.get('dia')?.value;
+    const mes = this.form.get('mes')?.value;
+    const anio = this.form.get('anio')?.value;
     const fechaActual = new Date();
     this.edad = fechaActual.getFullYear() - anio;
-    if (fechaActual.getMonth() + 1 < this.mes || (fechaActual.getMonth() + 1 === this.mes && fechaActual.getDate() < this.dia)) {
+    if (fechaActual.getMonth() + 1 < mes || (fechaActual.getMonth() + 1 == mes && fechaActual.getDate() < dia)){
       this.edad--;
     }
-    this.nombreCompleto = `${nombre} ${apaterno} ${amaterno}`;
     const resto = anio % 12;
-    if (resto === 0) {
-      this.horoscopo = 'Mono';
-      this.imagen = 'https://www.clarin.com/img/westernastrology/mono.svg';
-    } else if (resto === 1) {
-      this.horoscopo = 'Gallo';
-      this.imagen = 'https://www.clarin.com/img/westernastrology/gallo.svg';
-    } else if (resto === 2) {
-      this.horoscopo = 'Perro';
-      this.imagen = 'https://www.clarin.com/img/westernastrology/perro.svg';
-    } else if (resto === 3) {
-      this.horoscopo = 'Cerdo';
-      this.imagen = 'https://www.clarin.com/img/westernastrology/chancho.svg';
-    } else if (resto === 4) {
-      this.horoscopo = 'Rata';
-      this.imagen = 'https://www.clarin.com/img/westernastrology/rata.svg';
-    } else if (resto === 5) {
-      this.horoscopo = 'Buey';
-      this.imagen = 'https://www.clarin.com/img/westernastrology/bufalo.svg';
-    } else if (resto === 6) {
-      this.horoscopo = 'Tigre';
-      this.imagen = 'https://www.clarin.com/img/westernastrology/tigre.svg';
-    } else if (resto === 7) {
-      this.horoscopo = 'Conejo';
-      this.imagen = 'https://www.clarin.com/img/westernastrology/conejo.svg';
-    } else if (resto === 8) {
-      this.horoscopo = 'Dragón';
-      this.imagen = 'https://www.clarin.com/img/westernastrology/dragon.svg';
-    } else if (resto === 9) {
-      this.horoscopo = 'Serpiente';
-      this.imagen = 'https://www.clarin.com/img/westernastrology/serpiente.svg';
-    } else if (resto === 10) {
-      this.horoscopo = 'Caballo';
-      this.imagen = 'https://www.clarin.com/img/westernastrology/caballo.svg';
-    } else if (resto === 11) {
-      this.horoscopo = 'Cabra';
-      this.imagen = 'https://www.clarin.com/img/westernastrology/cabra.svg';
+    switch (resto){
+      case 0:
+        this.signoZodiacal = 'Mono';
+        this.imagen = 'https://www.clarin.com/img/westernastrology/mono.svg';
+        break;
+      case 1:
+        this.signoZodiacal = 'Gallo';
+        this.imagen = 'https://www.clarin.com/img/westernastrology/gallo.svg';
+        break;
+      case 2:
+        this.signoZodiacal = 'Perro';
+        this.imagen = 'https://www.clarin.com/img/westernastrology/perro.svg';
+        break;
+      case 3:
+        this.signoZodiacal = 'Cerdo';
+        this.imagen = 'https://www.clarin.com/img/westernastrology/chancho.svg';
+        break;
+      case 4:
+        this.signoZodiacal = 'Rata';
+        this.imagen = 'https://www.clarin.com/img/westernastrology/rata.svg';
+        break;
+      case 5:
+        this.signoZodiacal = 'Buey';
+        this.imagen = 'https://www.clarin.com/img/westernastrology/bufalo.svg';
+        break;
+      case 6:
+        this.signoZodiacal = 'Tigre';
+        this.imagen = 'https://www.clarin.com/img/westernastrology/tigre.svg';
+        break;
+      case 7:
+        this.signoZodiacal = 'Conejo';
+        this.imagen = 'https://www.clarin.com/img/westernastrology/conejo.svg';
+        break;
+      case 8:
+        this.signoZodiacal = 'Dragón';
+        this.imagen = 'https://www.clarin.com/img/westernastrology/dragon.svg';
+        break;
+      case 9:
+        this.signoZodiacal = 'Serpiente';
+        this.imagen = 'https://www.clarin.com/img/westernastrology/serpiente.svg';
+        break;
+      case 10:
+        this.signoZodiacal = 'Caballo';
+        this.imagen = 'https://www.clarin.com/img/westernastrology/caballo.svg';
+        break;
+      case 11:
+        this.signoZodiacal = 'Cabra';
+        this.imagen = 'https://www.clarin.com/img/westernastrology/cabra.svg';
+        break;
     }
+    this.nombreCompleto = `${nombre} ${apellidoP} ${apellidoM}`;
+    this.mensajeFinal = `Hola ${this.nombreCompleto}, tu edad es ${this.edad} y tu signo del zodiaco chino es ${this.signoZodiacal}.`;
     this.resultado = true;
   }
 }
