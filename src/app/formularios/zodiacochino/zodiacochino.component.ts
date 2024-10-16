@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './zodiacochino.component.html',
   styles: []
 })
-export class ZodiacochinoComponent {
+export default class ZodiacochinoComponent {
   form!: FormGroup;
   signoZodiacal!: string;
   edad!: number;
