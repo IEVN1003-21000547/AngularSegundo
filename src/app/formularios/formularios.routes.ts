@@ -10,6 +10,14 @@ export default[
         path: 'zodiacochino',
         loadComponent:()=>import('./zodiacochino/zodiacochino.component'),
     },
+    {
+        path: 'registro',
+        loadComponent:()=>import('./registro/registro.component'),
+    },
+    {
+        path: 'resistencias',
+        loadComponent:()=>import('./resistencias/resistencias.component'),
+    },
 
 
 ]as Routes

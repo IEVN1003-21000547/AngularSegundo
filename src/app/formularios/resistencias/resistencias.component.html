@@ -1,0 +1,99 @@
+<div class="container mx-auto p-4">
+<form [formGroup]="resistencia" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div class="form-group">
+    <label for="color1" class="block text-sm font-medium">Primera Banda</label>
+    <select id="color1" formControlName="color1" class="block w-full mt-1 p-2 border border-gray-300 rounded">
+        <option value="Negro">Negro</option>
+        <option value="Cafe">Café</option>
+        <option value="Rojo">Rojo</option>
+        <option value="Naranja">Naranja</option>
+        <option value="Amarillo">Amarillo</option>
+        <option value="Verde">Verde</option>
+        <option value="Azul">Azul</option>
+        <option value="Morado">Morado</option>
+        <option value="Gris">Gris</option>
+        <option value="Blanco">Blanco</option>
+    </select>
+    </div>
+
+    <div class="form-group">
+    <label for="color2" class="block text-sm font-medium">Segunda Banda</label>
+    <select id="color2" formControlName="color2" class="block w-full mt-1 p-2 border border-gray-300 rounded">
+        <option value="Negro">Negro</option>
+        <option value="Cafe">Café</option>
+        <option value="Rojo">Rojo</option>
+        <option value="Naranja">Naranja</option>
+        <option value="Amarillo">Amarillo</option>
+        <option value="Verde">Verde</option>
+        <option value="Azul">Azul</option>
+        <option value="Morado">Morado</option>
+        <option value="Gris">Gris</option>
+        <option value="Blanco">Blanco</option>
+    </select>
+    </div>
+
+    <div class="form-group">
+    <label for="color3" class="block text-sm font-medium">Tercera Banda</label>
+    <select id="color3" formControlName="color3" class="block w-full mt-1 p-2 border border-gray-300 rounded">
+        <option value="Negro">Negro</option>
+        <option value="Cafe">Café</option>
+        <option value="Rojo">Rojo</option>
+        <option value="Naranja">Naranja</option>
+        <option value="Amarillo">Amarillo</option>
+        <option value="Verde">Verde</option>
+        <option value="Azul">Azul</option>
+        <option value="Morado">Morado</option>
+        <option value="Gris">Gris</option>
+        <option value="Blanco">Blanco</option>
+    </select>
+    </div>
+    <div class="form-group col-span-4">
+    <label class="block text-sm font-medium">Tolerancia</label>
+    <div class="flex mt-1">
+        <label class="inline-flex items-center mr-4">
+        <input type="radio" formControlName="tolerancia" value="Oro" class="form-radio" />
+        <span class="ml-2">Oro</span>
+        </label>
+        <label class="inline-flex items-center">
+        <input type="radio" formControlName="tolerancia" value="Plata" class="form-radio" />
+        <span class="ml-2">Plata</span>
+        </label>
+    </div>
+    </div>
+
+    <div class="col-span-4">
+        <button type="button" (click)="calGuardar()" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Registrar</button>
+    </div>
+</form>
+
+<div class="mt-6">
+    <h3 class="text-lg font-semibold mb-2">Resistencia Calculada:</h3>
+    <table class="min-w-full border-collapse block md:table bg-white shadow-md rounded">
+    <thead class="block md:table-header-group">
+        <tr class="border border-gray-300 block md:table-row">
+        <th class="p-2 bg-gray-200 text-left block md:table-cell">Color1</th>
+        <th class="p-2 bg-gray-200 text-left block md:table-cell">Color2</th>
+        <th class="p-2 bg-gray-200 text-left block md:table-cell">Color3</th>
+        <th class="p-2 bg-gray-200 text-left block md:table-cell">Tolerancia</th>
+        <th class="p-2 bg-gray-200 text-left block md:table-cell">Valor</th>
+        <th class="p-2 bg-gray-200 text-left block md:table-cell">Valor Máximo</th>
+        <th class="p-2 bg-gray-200 text-left block md:table-cell">Valor Mínimo</th>
+        </tr>
+    </thead>
+    <tbody class="block md:table-row-group">
+        <tr *ngFor="let res of valoresCalculados" class="border border-gray-300 block md:table-row">
+          <td class="px-4 py-2 bg-gray-50 dark:bg-gray-800" [ngStyle]="{'background-color': operaycolor(res.color1).bgColor}">{{ res.color1 }}</td>
+          <td class="px-4 py-2 bg-gray-50 dark:bg-gray-800" [ngStyle]="{'background-color': operaycolor(res.color2).bgColor}">{{ res.color2 }}</td>
+          <td class="px-4 py-2 bg-gray-50 dark:bg-gray-800" [ngStyle]="{'background-color': operaycolor(res.color3).bgColor}">{{ res.color3 }}</td>
+          <td class="px-4 py-2 bg-gray-50 dark:bg-gray-800" [ngStyle]="{'background-color': operaycolor(res.tolerancia).bgColor}">{{ res.tolerancia }}</td>
+          <td class="p-2">{{ res.valor}}</td>
+          <td class="p-2">{{ res.valorMax}}</td>
+          <td class="p-2">{{ res.valorMin}}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+<div class="actions mt-6">
+    <button (click)="imprimir()" type="button" class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 mb-2">Imprimir</button>
+</div>
+</div>
