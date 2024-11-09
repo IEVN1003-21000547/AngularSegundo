@@ -24,14 +24,16 @@
       <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Registrar</button>
     </form>
   </div>
+  
   <div class="col-span-2 row-span-3">
     <br>
     <button type="button" (click)="imTabla()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Imprimir</button>
     <br>
     <br>
+
     <table class="min-w-full bg-white dark:bg-gray-800">
       <thead class="bg-gray-50 dark:bg-gray-700">
-        <tr>
+        <tr >
           <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase dark:text-gray-400">Matrícula</th>
           <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase dark:text-gray-400">Nombre</th>
           <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase dark:text-gray-400">Correo</th>
@@ -42,22 +44,23 @@
           <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase dark:text-gray-400">Subtotal</th>
         </tr>
       </thead>
-      <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-800" *ngIf="mostrarTabla"> <!-- Mostrar filas solo si mostrarTabla es true -->
-        <tr *ngFor="let empleado of empleados">
-          <td class="px-4 py-3 text-sm text-gray-900 whitespace-nowrap dark:text-white">{{ empleado.matricula }}</td>
-          <td class="px-4 py-3 text-sm text-gray-900 whitespace-nowrap dark:text-white">{{ empleado.nombre }}</td>
-          <td class="px-4 py-3 text-sm text-gray-900 whitespace-nowrap dark:text-white">{{ empleado.correo }}</td>
-          <td class="px-4 py-3 text-sm text-gray-900 whitespace-nowrap dark:text-white">{{ empleado.edad }}</td>
-          <td class="px-4 py-3 text-sm text-gray-900 whitespace-nowrap dark:text-white">{{ empleado.horasTrabajadas }}</td>
-          <td class="px-4 py-3 text-sm text-gray-900 whitespace-nowrap dark:text-white">{{ empleado.horasAPagar }}</td>
-          <td class="px-4 py-3 text-sm text-gray-900 whitespace-nowrap dark:text-white">{{ empleado.horasExtras }}</td>
-          <td class="px-4 py-3 text-sm text-gray-900 whitespace-nowrap dark:text-white">{{ empleado.subTotal }}</td>
+      <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-800" *ngIf="mostrarTabla">
+        <tr *ngFor="let empleado of empleadosParaImprimir">
+          <td class="px-4 py-3 text-sm text-gray-900 whitespace-nowrap dark:text-white">{{empleado.matricula}}</td>
+          <td class="px-4 py-3 text-sm text-gray-900 whitespace-nowrap dark:text-white">{{empleado.nombre}}</td>
+          <td class="px-4 py-3 text-sm text-gray-900 whitespace-nowrap dark:text-white">{{empleado.correo}}</td>
+          <td class="px-4 py-3 text-sm text-gray-900 whitespace-nowrap dark:text-white">{{empleado.edad}}</td>
+          <td class="px-4 py-3 text-sm text-gray-900 whitespace-nowrap dark:text-white">{{empleado.horasTrabajadas}}</td>
+          <td class="px-4 py-3 text-sm text-gray-900 whitespace-nowrap dark:text-white">{{empleado.pagoH}}</td>
+          <td class="px-4 py-3 text-sm text-gray-900 whitespace-nowrap dark:text-white">{{empleado.pagoHextra}}</td>
+          <td class="px-4 py-3 text-sm text-gray-900 whitespace-nowrap dark:text-white">{{empleado.subTotal}}</td>
         </tr>
         <tr class="bg-gray-100 dark:bg-gray-700">
           <td colspan="7" class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-400 text-right">Total a pagar</td>
           <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-400">{{totalPagar}}</td>
         </tr>
       </tbody>
+      
     </table>
     <button type="button" (click)="modificar()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Modificar</button>
     <button type="button" (click)="eliminar()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Eliminar</button>
